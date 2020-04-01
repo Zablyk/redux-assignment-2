@@ -29,8 +29,8 @@ class Persons extends Component {
     render () {
         return (
             <div>
-                <AddPerson personAdded={this.personAddedHandler} />
-                {this.state.persons.map(person => (
+                <AddPerson clicked={this.props.personAddedHandler} />
+                {this.props.persons.map(person => (
                     <Person 
                         key={person.id}
                         name={person.name} 
@@ -42,4 +42,16 @@ class Persons extends Component {
     }
 }
 
-export default connect()(Persons);
+const mapStateToProps = state => {
+    return {
+        persons: state.persons
+    }
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        personAddedHandler:() => dispatch({type: 'ADD_PERSON'})
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Persons);
