@@ -6,13 +6,19 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'ADD_PERSON':
+        case actionType.ADD_PERSON:
             return {
                 ...state,
-                counter: state.counter + 1
-        };
-    };
-    return state
+                results: state.persons.concat({id: Math.random, name: 'Oleg', age: Math.floor( Math.random() * 40 )})
+            };
+            case actionType.DELETE_PERSON:
+                const newArray = state.persons.filter( person => person.id !== action.personId);
+                return {
+                    ...state,
+                    results: newArray 
+                };
+    }
+    return state;
 };
 
 export default reducer;

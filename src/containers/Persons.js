@@ -3,40 +3,20 @@ import { connect } from 'react-redux';
 
 import Person from '../components/Person/Person';
 import AddPerson from '../components/AddPerson/AddPerson';
+import * as actionType from '../store/actions';
 
 class Persons extends Component {
-    state = {
-        persons: []
-    }
-
-    personAddedHandler = () => {
-        const newPerson = {
-            id: Math.random(), // not really unique but good enough here!
-            name: 'Max',
-            age: Math.floor( Math.random() * 40 )
-        }
-        this.setState( ( prevState ) => {
-            return { persons: prevState.persons.concat(newPerson)}
-        } );
-    }
-
-    personDeletedHandler = (personId) => {
-        this.setState( ( prevState ) => {
-            return { persons: prevState.persons.filter(person => person.id !== personId)}
-        } );
-    }
-
     render () {
         return (
             <div>
-                <AddPerson clicked={this.props.personAddedHandler} />
-                {this.props.persons.map(person => (
+                <AddPerson personAdded={this.props.onAddedPerson} />
+                {this.props.prs.map(person => (
                     <Person 
                         key={person.id}
                         name={person.name} 
                         age={person.age} 
-                        clicked={() => this.personDeletedHandler(person.id)}/>
-                ))}
+                        clicked={() => this.props.onDeletedPerson(person.id)} />
+                    ))}
             </div>
         );
     }
@@ -44,13 +24,14 @@ class Persons extends Component {
 
 const mapStateToProps = state => {
     return {
-        persons: state.persons
-    }
+        prs: state.persons
+    };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        personAddedHandler:() => dispatch({type: 'ADD_PERSON'})
+        onAddedPerson:() => dispatch({type: actionType.ADD_PERSON}),
+        onDeletedPerson:(id) => dispatch({type: actionType.DELETE_PERSON, personId: id})
     };
 };
 
