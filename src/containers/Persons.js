@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import Person from '../components/Person/Person';
 import AddPerson from '../components/AddPerson/AddPerson';
@@ -41,4 +42,4 @@ class Persons extends Component {
     }
 }
 
-export default Persons;
+export default connect()(Persons);
