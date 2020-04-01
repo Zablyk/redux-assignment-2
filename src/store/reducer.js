@@ -10,8 +10,8 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 persons: state.persons.concat({id: Math.random(),
-                    name: 'Oleg',
-                    age: Math.floor( Math.random() * 40 )})
+                    name: action.personData.name,
+                    age: action.personData.age})
             };
             case actionType.DELETE_PERSON:
                 return {

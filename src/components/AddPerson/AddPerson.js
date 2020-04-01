@@ -5,7 +5,7 @@ import './AddPerson.css';
 class AddPerson extends Component {
     state = {
         name: '',
-        age: null
+        age: ''
     };
 
     nameChangeHandler = (event) => {
@@ -30,7 +30,7 @@ class AddPerson extends Component {
                 onChange={this.ageChangeHandler}
                 value={this.state.age}
                 />
-                <button onClick={this.props.personAdded}>Add Person</button>
+                <button onClick={() => this.props.personAdded(this.state.name, this.state.age)}>Add Person</button>
             </div>
         );    
     }
